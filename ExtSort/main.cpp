@@ -66,24 +66,25 @@ void merge_k_arrays(std::vector<std::string> files, std::string output_name) {
 	std::ifstream fin(files.back());
 	std::ofstream fout(output_name);
 	while (!fin.eof()) {
-		int x;
-		fin >> x;
-		fout << x << " ";
+		std::string x;
+		getline(fin, x);
+		fout << x << std::endl;;
 	}
 }
 
 void sort_file(std::string file_name) {
-	std::vector<int> a;
+	std::vector<std::string> a;
 	std::ifstream fin(file_name);
 	while (!fin.eof()) {
-		int x;
-		fin >> x;
+		std::string x;
+		getline(fin, x);
 		a.push_back(x);
 	}
+	while (a.back() == "") a.pop_back();
 	sort(a.begin(), a.end());
 	fin.close();
 	std::ofstream fout(file_name);
-	for (int e : a) fout << e << " ";
+	for (std::string e : a) fout << e << std::endl;
 	fout.close();
 }
 
@@ -100,9 +101,9 @@ int main() {
 			files.push_back("f_" + std::to_string(cnt) + ".txt");
 			fout.open(files.back());
 		}
-		int x;
-		fin >> x;
-		fout << x << " ";
+		std::string x;
+		getline(fin, x);
+		fout << x << std::endl;
 		cnt = (cnt++) % file_size;
 	}
 	fout.close();
